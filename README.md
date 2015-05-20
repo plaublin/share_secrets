@@ -13,7 +13,6 @@ Note that secrets are encrypted on the disk using AES with a 128bits key. The se
 	$email->From      = '<from email address>'; // email address with which you send the email
 	$email->FromName  = '<from name>';          // name in the From field of the email
 ```
-3. You are good to go!
 
 ## Usage
 
