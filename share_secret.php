@@ -64,11 +64,11 @@ function displaySecretIfPossible($pass, $email) {
 	$hash = sha1($pass . $email);
 	$hh = substr($hash, 0, 7);
 
-	if (!file_exists($hash)) {
+	if (!file_exists(sha1($hash))) {
 		echo 'There is no secret for this email and password. Maybe you type the wrong credentials, or the secret has already been retrieved. Give this hash code to your buddy: ' . $hh;
 		$header = 'Someone tried to access a secret that does not exist with your email!';
 	} else {
-		$myfile = fopen($hash, "r") or die("Unable to open file!");
+		$myfile = fopen(sha1($hash), "r") or die("Unable to open file!");
 		$enc = fread($myfile, filesize($hash));
 		fclose($myfile);
 		unlink($hash);
@@ -89,7 +89,7 @@ function createNewSecret($pass, $email, $secret) {
 
 	$enc = encryptText($secret, $hash);
 
-	$myfile = fopen($hash, "w") or die("Unable to open file!");
+	$myfile = fopen(sha1($hash), "w") or die("Unable to open file!");
 	fwrite($myfile, $enc);
 	fclose($myfile);
 
